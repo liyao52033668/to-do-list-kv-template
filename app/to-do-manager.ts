@@ -6,18 +6,18 @@ interface Todo {
 }
 
 /**
- * TodoManager handles all interactions with the Todos KV store.
- * This class provides CRUD operations for managing todo items in Cloudflare KV storage.
+ * TodoManager 处理所有与 Todos KV 存储的交互。
+ * 该类为在 Cloudflare KV 存储中管理待办事项提供 CRUD 操作。
  *
- * By separating all of the logic for interacting with the KV store from the
- * rest of the Remix application, we can easily test the logic in isolation
- * using [Cloudflare's vitest integration](https://developers.cloudflare.com/workers/testing/vitest-integration/)
+ * 通过将所有与 KV 存储交互的逻辑与 Remix 应用的其余部分分离，
+ * 我们可以使用 [Cloudflare 的 vitest 集成](https://developers.cloudflare.com/workers/testing/vitest-integration/)
+ * 在隔离环境中轻松测试逻辑。
  */
 export class TodoManager {
 	/**
-	 * Creates a new TodoManager instance
-	 * @param kv - The Cloudflare KV namespace instance to use for storage
-	 * @param todosKey - The key under which todos will be stored in KV (defaults to "todos")
+	 * 创建 TodoManager 实例
+	 * @param kv - 用于存储的 Cloudflare KV 命名空间实例
+	 * @param todosKey - 待办事项在 KV 中存储所用的键（默认为 "todos"）
 	 */
 	constructor(
 		private kv: KVNamespace,
@@ -25,8 +25,8 @@ export class TodoManager {
 	) {}
 
 	/**
-	 * Retrieves all todos from storage
-	 * @returns Promise containing an array of Todo items, sorted by creation date (newest first)
+	 * 从存储中检索所有待办事项
+	 * @returns 返回按创建日期排序（最新在前）的待办事项数组的 Promise
 	 */
 	async list(): Promise<Todo[]> {
 		const todos = await this.kv.get(this.todosKey, "json");
@@ -37,9 +37,9 @@ export class TodoManager {
 	}
 
 	/**
-	 * Creates a new todo item
-	 * @param text - The text content of the todo item
-	 * @returns Promise containing the newly created Todo item
+	 * 创建新的待办事项
+	 * @param text - 待办事项的文本内容
+	 * @returns 返回新创建待办事项的 Promise
 	 */
 	async create(text: string): Promise<Todo> {
 		const newTodo: Todo = {
@@ -57,16 +57,16 @@ export class TodoManager {
 	}
 
 	/**
-	 * Toggles the completed status of a todo item
-	 * @param id - The unique identifier of the todo item to toggle
-	 * @returns Promise containing the updated Todo item
-	 * @throws Error if the todo item with the specified ID is not found
+	 * 切换待办事项的完成状态
+	 * @param id - 要切换的待办事项的唯一标识符
+	 * @returns 返回更新后的待办事项的 Promise
+	 * @throws 如果指定 ID 的待办事项未找到则抛出错错误
 	 */
 	async toggle(id: string): Promise<Todo> {
 		const todos = await this.list();
 		const todoIndex = todos.findIndex((todo) => todo.id === id);
 		if (todoIndex === -1) {
-			throw new Error(`Todo with id ${id} not found`);
+			throw new Error(`未找到 ID 为 ${id} 的待办事项`);
 		}
 		todos[todoIndex].completed = !todos[todoIndex].completed;
 		await this.kv.put(this.todosKey, JSON.stringify(todos), {
@@ -76,9 +76,9 @@ export class TodoManager {
 	}
 
 	/**
-	 * Deletes a todo item
-	 * @param id - The unique identifier of the todo item to delete
-	 * @returns Promise that resolves when the deletion is complete
+	 * 删除待办事项
+	 * @param id - 要删除的待办事项的唯一标识符
+	 * @returns 删除完成时解析的 Promise
 	 */
 	async delete(id: string): Promise<void> {
 		const todos = await this.list();

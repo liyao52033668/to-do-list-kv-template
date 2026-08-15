@@ -14,9 +14,9 @@ export default {
 				request,
 				context: {
 					cloudflare: {
-						// This object matches the return value from Wrangler's
-						// `getPlatformProxy` used during development via Remix's
-						// `cloudflareDevProxyVitePlugin`:
+						// 该对象与 Wrangler 的
+						// `getPlatformProxy` 在通过 Remix 的
+						// `cloudflareDevProxyVitePlugin` 开发时的返回值一致：
 						// https://developers.cloudflare.com/workers/wrangler/api/#getplatformproxy
 						cf: request.cf,
 						ctx: {
@@ -32,7 +32,7 @@ export default {
 			return await handleRemixRequest(request, loadContext);
 		} catch (error) {
 			console.log(error);
-			return new Response("An unexpected error occurred", { status: 500 });
+			return new Response("发生意外的错误", { status: 500 });
 		}
 	},
 } satisfies ExportedHandler<Env>;

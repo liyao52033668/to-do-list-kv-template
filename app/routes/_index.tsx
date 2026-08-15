@@ -7,5 +7,5 @@ export const loader = () => {
 };
 
 export default function Index() {
-	return <div>'Whatever you put here will not be shown'</div>;
+	return <div>'此处内容不会显示'</div>;
 }

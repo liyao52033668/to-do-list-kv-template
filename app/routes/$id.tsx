@@ -26,7 +26,7 @@ export async function action({ request, context, params }: ActionFunctionArgs) {
 		case "create": {
 			const text = formData.get("text");
 			if (typeof text !== "string" || !text)
-				return Response.json({ error: "Invalid text" }, { status: 400 });
+				return Response.json({ error: "无效的文本内容" }, { status: 400 });
 			await todoManager.create(text);
 			return { success: true };
 		}
@@ -44,7 +44,7 @@ export async function action({ request, context, params }: ActionFunctionArgs) {
 		}
 
 		default:
-			return Response.json({ error: "Invalid intent" }, { status: 400 });
+			return Response.json({ error: "无效的操作" }, { status: 400 });
 	}
 }
 
@@ -55,7 +55,7 @@ export default function () {
 		<div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4">
 			<div className="max-w-md mx-auto">
 				<h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
-					Todo List
+					待办事项列表
 				</h1>
 
 				<Form method="post" className="mb-8 flex gap-2">
@@ -63,7 +63,7 @@ export default function () {
 						type="text"
 						name="text"
 						className="flex-1 rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm px-4 py-2"
-						placeholder="Add a new todo..."
+						placeholder="添加新的待办事项..."
 					/>
 					<button
 						type="submit"
@@ -71,7 +71,7 @@ export default function () {
 						value="create"
 						className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
 					>
-						Add
+						添加
 					</button>
 				</Form>
 
@@ -107,7 +107,7 @@ export default function () {
 									value="delete"
 									className="text-red-500 hover:text-red-700"
 								>
-									Delete
+									删除
 								</button>
 							</Form>
 						</li>

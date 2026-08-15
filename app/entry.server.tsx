@@ -1,7 +1,8 @@
 /**
- * By default, Remix will handle generating the HTTP Response for you.
- * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
- * For more information, see https://remix.run/file-conventions/entry.server
+ * 默认情况下，Remix 会为您自动处理生成 HTTP 响应。
+ * 如果您希望删除此文件，完全可以自由操作，但如果以后想恢复它，
+ * 可以运行 `npx remix reveal` ✨
+ * 有关更多信息，请参阅 https://remix.run/file-conventions/entry.server
  */
 
 import type { AppLoadContext, EntryContext } from "@remix-run/cloudflare";
@@ -16,8 +17,8 @@ export default async function handleRequest(
 	responseStatusCode: number,
 	responseHeaders: Headers,
 	remixContext: EntryContext,
-	// This is ignored so we can keep it in the template for visibility.  Feel
-	// free to delete this parameter in your app if you're not using it!
+	// 此参数被忽略，以便在模板中保留其可见性。
+	// 如果您在应用中不使用它，可以随意删除此参数！
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	loadContext: AppLoadContext,
 ) {
@@ -36,7 +37,7 @@ export default async function handleRequest(
 			signal: controller.signal,
 			onError(error: unknown) {
 				if (!controller.signal.aborted) {
-					// Log streaming rendering errors from inside the shell
+					// 记录外壳内部的流式渲染错误
 					console.error(error);
 				}
 				responseStatusCode = 500;
