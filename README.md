@@ -1,52 +1,56 @@
-# To-Do List App
+# 待办事项列表应用 (To-Do List App)
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/to-do-list-kv-template)
+[![部署到 Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/to-do-list-kv-template)
 
-![To-Do List Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/923473bc-a285-487c-93db-e0ddea3d3700/public)
+![待办事项列表模板预览](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/923473bc-a285-487c-93db-e0ddea3d3700/public)
 
 <!-- dash-content-start -->
 
-Manage your to-do list with [Cloudflare Workers Assets](https://developers.cloudflare.com/workers/static-assets/) + [Remix](https://remix.run/) + [Cloudflare Workers KV](https://developers.cloudflare.com/kv/).
+使用 [Cloudflare Workers Assets](https://developers.cloudflare.com/workers/static-assets/) + [Remix](https://remix.run/) + [Cloudflare Workers KV](https://developers.cloudflare.com/kv/) 管理你的待办事项列表。
 
-## How It Works
+> 英文版本文档请参阅 [README-EN.md](./README-EN.md)。
 
-This is a simple to-do list app that allows you to add, remove, and mark tasks as complete. The project is a Cloudflare Workers Assets application built with Remix. It uses Cloudflare Workers KV to store the to do list items. The [Remix Vite Plugin](https://remix.run/docs/en/main/guides/vite#vite) has a Cloudflare Dev Proxy that enables you to use [Bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/) provided by the Cloudflare Developer Platform. [Observability](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs) is on by default.
+## 工作原理
+
+这是一个简单的待办事项列表应用，允许你添加、删除以及标记任务为已完成。该项目是基于 Remix 构建的 Cloudflare Workers Assets 应用，并使用 Cloudflare Workers KV 存储待办事项。
+
+[Remix Vite 插件](https://remix.run/docs/en/main/guides/vite#vite) 内置了 Cloudflare Dev Proxy，使你能够使用 Cloudflare 开发者平台提供的 [Bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/)。[可观测性 (Observability)](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#enable-workers-logs) 默认开启。
 
 > [!IMPORTANT]
-> When using C3 to create this project, select "no" when it asks if you want to deploy. You need to follow this project's [setup steps](https://github.com/cloudflare/templates/tree/main/to-do-list-kv-template#setup-steps) before deploying.
+> 使用 C3 创建此项目时，当询问是否要部署时请选择“否（no）”。在进行部署之前，你需要遵循本项目的[设置步骤](#设置步骤)。
 
 <!-- dash-content-end -->
 
-## Getting Started
+## 快速开始
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+在此仓库之外，你可以使用 [C3](https://developers.cloudflare.com/pages/get-started/c3/)（`create-cloudflare` CLI）基于此模板创建新项目：
 
 ```bash
 npm create cloudflare@latest -- --template=cloudflare/templates/to-do-list-kv-template
 ```
 
-A live public deployment of this template is available at [https://to-do-list-kv-template.templates.workers.dev](https://to-do-list-kv-template.templates.workers.dev)
+此模板的在线公开部署可访问 [https://to-do-list-kv-template.templates.workers.dev](https://to-do-list-kv-template.templates.workers.dev)。
 
-## Setup Steps
+## 设置步骤
 
-1. Install the project dependencies with a package manager of your choice:
+1. 使用你选择的包管理器安装项目依赖：
    ```bash
    npm install
    ```
-2. Create a [kv namespace](https://developers.cloudflare.com/kv/get-started/) with a binding named "TO_DO_LIST":
+2. 创建一个绑定名为 `TO_DO_LIST` 的 [KV 命名空间](https://developers.cloudflare.com/kv/get-started/)：
    ```bash
    npx wrangler kv namespace create TO_DO_LIST
    ```
-   ...and update the `kv_namespaces` -> `id` field in `wrangler.json` with the new namespace ID.
-3. Build the application:
+   ...并将 `wrangler.jsonc` 中 `kv_namespaces` -> `id` 字段更新为新的命名空间 ID。
+3. 构建应用：
    ```bash
    npm run build
    ```
-4. Deploy it!
+4. 部署它！
    ```bash
    npx wrangler deploy
    ```
-5. And monitor your worker!
+5. 监控你的 worker！
    ```bash
    npx wrangler tail
    ```
